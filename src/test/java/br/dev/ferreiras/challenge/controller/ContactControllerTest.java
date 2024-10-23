@@ -1,0 +1,21 @@
+package br.dev.ferreiras.challenge.controller;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ContactControllerTest {
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @Test
+    void getContacts() {
+    }
+
+    @Test
+    void testGetContacts() {
+    }
+}
