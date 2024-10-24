@@ -8,6 +8,8 @@ import br.dev.ferreiras.challenge.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,5 +42,15 @@ public class UserService implements IUserService {
     public Role getRole() {
 
         return this.roleRepository.findByRole(Role.Roles.ROLE_USER.name());
+    }
+
+    public List<String> checkSystem() {
+        final String javaVersion = System.getProperty("java_version");
+        final int numberOfCores = Runtime.getRuntime().availableProcessors();
+        final List<String> requirements = new ArrayList<>();
+        requirements.add(javaVersion);
+        requirements.add(Integer.toString(numberOfCores));
+
+        return requirements;
     }
 }

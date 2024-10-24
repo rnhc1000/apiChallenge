@@ -54,6 +54,9 @@ public class User {
     )
     private Set<Role> roles;
 
+    public User(String user, String encodedPassword) {
+    }
+
     public Long getId() {
         return id;
     }

@@ -39,6 +39,13 @@ public class Contact {
         this.update_at = update_at;
     }
 
+    public Contact(String name, String email, String created_at, String update_at) {
+        this.name = name;
+        this.email = email;
+        this.created_at = created_at;
+        this.update_at = update_at;
+    }
+
     public Long getId() {
         return id;
     }
