@@ -20,17 +20,37 @@ Goal: Develop an API to consume a contacts endpoint
 
 This challenge delivers an API to consume contacts endpoint. 
 The goal is to evaluate how a dev face the challenge of
-building a RESTful API,according to beast practices.
+building a RESTful API,according to a spec provided detailed below.
+
 <br />
 
 ## _Requirements_
 
-There are some specific requirements to be met, paginated data recovery, 
-consuming services of other api -> <a href="https://k-messages-api.herokuapp.com" target="_blank">Random.org API</a>, authenticated access to endpoints and some other requirements.<br />
+- The response from the endpoint should match the schema provided in the requirements.
+<br />
+- Project structure and organization of your code: we want to see if your code follows good patterns, and separates
+concerns between controllers, services, and repositories.
+<br />
+- Capacity to follow good principles like Clean Code and SOLID.
+<br />
+- Capacity to use design patterns and knowledge about the chosen one(s) usage.
+<br />
+- Ability to consume other APIs and correctly handle pagination.
+<br />
+- Knowledge about the tools you decided to use.
+<br />
+- Ability to create smart tests to enhance your code quality.
+
+Based on these, the app consumes services of another api -> <a href="https://k-messages-api.herokuapp.com" target="_blank">Contacts API</a>.
+
+<br />
+As I decided to take advantage of OpenAPI, after the app is ready, you
+can play with the outcome available at:
+http://127.0.0.1:8097/swagger-ui/html
 <br />
 The app has been coded using Java 17, Spring Boot 3.3.4, Gradle, Javadoc, Spring Security, Spring JPA, Spring Webflux,
 OpenAPI, MySQL, Docker and hosted in an AWS EC2 instance with secure access provided
-by a NGINX SSL proxy reverse and being live at <a href="https://challenge.ferreiras.dev.br/swagger-ui/index.html" target="_blank">CalculatorWeb-API</a> <br />
+by a NGINX SSL proxy reverse and being live at <a href="https://challenge.ferreiras.dev.br/swagger-ui/index.html" target="_blank">API Aggregator</a> <br />
 <br />
 Why don't you take a look at this short video....to see how it works...
 <br />
@@ -44,6 +64,7 @@ Why don't you take a look at this short video....to see how it works...
     - main
     - java
         - br.dev.ferreiras.challenge
+            - contracts
             - config
             - controller
               - handlers 
@@ -61,24 +82,14 @@ Why don't you take a look at this short video....to see how it works...
 ## _Howto Build and Run_
 
   ```
-  - MySQL Database : http://127.0.0.1:3306:challenge
+  - MySQL Database: http://127.0.0.1:3306:challenge
+  - credentials available at classpath:db.properties
   - profile active: dev or prod
-  - service socket: 127.0.0.1:8095
-  - tweak a few knobs to get it up and running
-  """
-  src.main.java.br.dev.ferreiras.challenge.config.OpenApiConfiguration
-  ...
-  public class OpenApiConfiguration {
-  @Bean
-  public OpenAPI defineOpenApi() {
-    Server server = new Server();
-    -> server.setUrl("http://127.0.0.1:8097"); <-
-    server.setDescription("Development");
-   ....
-  """
-  
-  To have a docker image follow the instructions of the dockerBuild.sh,
-  otherwise just Ctrl-Shift-F10 and voila...
+  - production socket:127.0.0.1:8097
+  - tweak a few knobs to get it up and running according to the instructions
+    provided at classpath:dockerBuild.sh or just in case you want ro run
+    locally go to {PWD}/challenge and run ./gradlew run, or check the video
+    url shown below.
 
 ```
 
@@ -107,45 +118,50 @@ import java.util.List;
  *
  */
 
-@Configuration
-public class OpenApiConfiguration {
-  @Bean
-  public OpenAPI defineOpenApi() {
-    Server server = new Server();
-    server.setUrl("https://challenge.ferreiras.dev.br/");
-    server.setDescription("Development");
+@RestController
+@RequestMapping("api/v1")
+public class ContactController {
 
-    Contact myContact = new Contact();
-    myContact.setName(":Ricardo Ferreira");
-    myContact.setEmail("ricardo@ferreiras.dev.br");
+    private final ContactService contactService;
 
-    Info information = new Info()
-            .title("Jobsity Challenge")
-            .version("1.0")
-            .description("API Aggregator")
-            .contact(myContact);
+    public ContactController(ContactService contactService) {
+        this.contactService = contactService;
+    }
 
-    return new OpenAPI()
-            .info(information)
-            .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-            .components(
-                    new Components()
-                            .addSecuritySchemes("bearerAuth", new SecurityScheme()
-                                    .type(SecurityScheme.Type.HTTP)
-                                    .scheme("bearer")
-                                    .bearerFormat("JWT")
-                            )
-            )
-            .servers(List.of(server));
-  }
+    @Operation(summary = "Fetch 20 contacts per page")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get up to 20 contacts per page.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema (implementation = ResponseContactsDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "401", description = "Access Denied",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "FORBIDDEN",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Resource not found!",
+                    content = {@Content(mediaType = "application/json")})
+    })
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/contacts")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    public Mono<ResponseContactsDto> getContacts(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+
+        return contactService.makeApiRequest()
+                .bodyToMono(ResponseContactsDto.class);
+
+    }
 }
+
 
 ``` 
 
 ## _Continued development_
 
-- Unit Tests -
-
+- Unit Tests 
 - Subscriber Authentication - OK
 - Spring JWT-OAuth2 - OK
 - Records Pagination - TBD
@@ -154,7 +170,7 @@ public class OpenApiConfiguration {
 
 - [https://spring.io/] Awesome Java framework!.
 - [https://start.spring.io/]  Handy startup tool.
-- [https://mvnrepository.com/] Tools that help tackle the beast
+- [https://mvnrepository.com/]
 
 ## _Author_
 <a href="mailto:ricardo@ferreiras.dev.br">Ricardo Ferreira</a>
