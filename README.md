@@ -20,9 +20,8 @@ Goal: Develop an API to consume a contacts endpoint
 
 This challenge delivers an API to consume contacts endpoint. 
 The goal is to evaluate how a dev face the challenge of
-building a RESTful API,according to a spec provided detailed below.
+building a REST API, according to a spec provided and detailed below.
 
-<br />
 
 ## _Requirements_
 
@@ -44,12 +43,13 @@ concerns between controllers, services, and repositories.
 Based on these, the app consumes services of another api -> <a href="https://k-messages-api.herokuapp.com" target="_blank">Contacts API</a>.
 
 <br />
-As I decided to take advantage of OpenAPI, after the app is ready, you
-can play with the outcome available at:
+You can play with the app, visiting the link below after app
+is up and running
+
 http://127.0.0.1:8097/swagger-ui/html
 <br />
-The app has been coded using Java 17, Spring Boot 3.3.4, Gradle, Javadoc, Spring Security, Spring JPA, Spring Webflux,
-OpenAPI, MySQL, Docker and hosted in an AWS EC2 instance with secure access provided
+The app has been coded using Java 17, Spring Boot 3.3.4, Gradle, Javadoc, Spring Security, Spring JPA, 
+Spring Webflux, OpenAPI, JUnit, Mockito, MySQL, Docker and hosted in an AWS EC2 instance with secure access provided
 by a NGINX SSL proxy reverse and being live at <a href="https://challenge.ferreiras.dev.br/swagger-ui/index.html" target="_blank">API Aggregator</a> <br />
 <br />
 Why don't you take a look at this short video....to see how it works...
@@ -77,6 +77,10 @@ Why don't you take a look at this short video....to see how it works...
     - resources
         - certs
     - test
+      - java
+        - br.dev.ferreiras.challenge
+          - controller
+          - service
 -
 
 ## _Howto Build and Run_
