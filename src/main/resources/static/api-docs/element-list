@@ -1,0 +1,10 @@
+br.dev.ferreiras.challenge
+br.dev.ferreiras.challenge.config
+br.dev.ferreiras.challenge.contracts
+br.dev.ferreiras.challenge.controller
+br.dev.ferreiras.challenge.controller.handler
+br.dev.ferreiras.challenge.dto
+br.dev.ferreiras.challenge.entity
+br.dev.ferreiras.challenge.repository
+br.dev.ferreiras.challenge.service
+br.dev.ferreiras.challenge.service.exceptions

@@ -3,18 +3,18 @@ networks:
   jobsity-challenge:
     ipam:
       config:
-        - subnet: 172.18.0.0/24
+        - subnet: 172.20.0.0/24
 
 services:
   mysql:
-    container_name: mysql
+    container_name: mysql_challenge
     image: mysql:latest
     labels:
       - "database-challenge"
     ports:
       - "3306:3306"
     healthcheck:
-      test:  mysqladmin -h 172.18.0.1 ping -u root -p@SQLAdm1n@ || exit 1
+      test:  mysqladmin -h 172.20.0.1 ping -u root -p@SQLAdm1n@ || exit 1
       interval: 1m
       timeout: 30s
       retries: 3
@@ -26,11 +26,11 @@ services:
       TZ: "America/Sao_Paulo"
     networks:
       jobsity-challenge:
-        ipv4_address: 172.18.0.2
+        ipv4_address: 172.20.0.2
 
-  challenge-api
+  challenge-api:
     container_name: challenge-api
-    image:jobsity/challenge:challengeapi-1.1.23.0.1
+    image: rnhc757/images:challengeapi-1.1.10.23.01
     labels:
       - "challenge:services"
     ports:
@@ -39,21 +39,21 @@ services:
       - ${PWD}/logs:/log
     networks:
       jobsity-challenge:
-        ipv4_address: 172.18.0.3
+        ipv4_address: 172.20.0.3
 
   portainer:
-    container_name: portainer
+    container_name: portainer-challenge
     image: portainer/portainer-ce
     labels:
       - "Manage Docker Challenge"
     ports:
-      - "57757:9000"
+      - "7777:9000"
     restart: always
     environment:
       TZ: "America/New_York"
     networks:
       jobsity-challenge:
-        ipv4_address: 172.18.0.10
+        ipv4_address: 172.20.0.10
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

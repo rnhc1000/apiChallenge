@@ -1,5 +1,6 @@
 package br.dev.ferreiras.challenge.controller;
 
+import br.dev.ferreiras.challenge.dto.AccessToken;
 import br.dev.ferreiras.challenge.dto.LoginRequestDto;
 import br.dev.ferreiras.challenge.dto.LoginResponseDto;
 import br.dev.ferreiras.challenge.entity.User;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,11 +52,13 @@ public class TokenController {
 
   @Operation (summary = "Authenticate a user and return an access token and its expiration time")
   @ApiResponses ({
-          @ApiResponse (responseCode = "201", description = "Access Token created!", content = @Content (mediaType = "application/json", schema = @Schema (implementation = TokenController.class))),
-          @ApiResponse (responseCode = "401", description = "Access Denied!", content = @Content (mediaType = "application/json", schema = @Schema (implementation = TokenController.class))),
+          @ApiResponse (responseCode = "200", description = "OK!", content = @Content (mediaType = "application/json",
+                  schema = @Schema (implementation = AccessToken.class))),
+          @ApiResponse (responseCode = "201", description = "Access Token created!", content = @Content (mediaType = "application/json")),
+          @ApiResponse (responseCode = "401", description = "Access Denied!", content = @Content (mediaType = "application/json")),
           @ApiResponse (responseCode = "403", description = "Not Authorized!", content = @Content),
   })
-  @ResponseStatus
+  @ResponseStatus(HttpStatus.CREATED)
   @PostMapping ("/login")
   public ResponseEntity<LoginResponseDto> login(@RequestBody final LoginRequestDto loginRequestDto) {
 
