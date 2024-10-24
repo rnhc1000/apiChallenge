@@ -14,7 +14,7 @@ services:
     ports:
       - "3306:3306"
     healthcheck:
-      test:  mysqladmin -h 172.20.0.1 ping -u root -p@SQLAdm1n@ || exit 1
+      test:  mysqladmin -h 172.20.0.1 ping -u root -pM4n4g3rMySQL || exit 1
       interval: 1m
       timeout: 30s
       retries: 3
