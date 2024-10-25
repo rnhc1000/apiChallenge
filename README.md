@@ -43,16 +43,14 @@ concerns between controllers, services, and repositories.
 Based on these, the app consumes services of another api -> <a href="https://k-messages-api.herokuapp.com" target="_blank">Contacts API</a>.
 
 <br />
-You can play with the app, visiting the link below after app
-is up and running
+You can play with the app, visiting the link below after you build the app
+according to the instructions.
 
 http://127.0.0.1:8097/swagger-ui/html
 <br />
 The app has been coded using Java 17, Spring Boot 3.3.4, Gradle, Javadoc, Spring Security, Spring JPA, 
-Spring Webflux, OpenAPI, JUnit, Mockito, MySQL, Docker and hosted in an AWS EC2 instance with secure access provided
-by a NGINX SSL proxy reverse and being live at <a href="https://challenge.ferreiras.dev.br/swagger-ui/index.html" target="_blank">API Aggregator</a> <br />
-<br />
-Why don't you take a look at this short video....to see how it works...
+Spring Webflux, OpenAPI, JUnit, Mockito, MySQL, Docker and others.<br />
+Take a look at the video below to understand how I faced the challenge.
 <br />
 <a href="https://youtu.be/CUdN-P-14So" target="_blank">Short Video</a>
 <hr />

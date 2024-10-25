@@ -41,6 +41,8 @@ dependencies {
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-resource-server
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server', version: '3.3.2'
 
+// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
