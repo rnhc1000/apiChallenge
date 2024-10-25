@@ -1,6 +1,7 @@
 package br.dev.ferreiras.challenge.service;
 
 import br.dev.ferreiras.challenge.dto.ContactsElementsDto;
+import br.dev.ferreiras.challenge.dto.ResponseContactsDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -12,7 +13,7 @@ public class ContactPaginatedService {
 
     private static final String APIKEY = "J7ybt6jv6pdJ4gyQP9gNonsY";
 
-    public Flux<ContactsElementsDto> fetchPaginatedContacts() {
+    public Flux<ResponseContactsDto> fetchPaginatedContacts() {
 
     return  webClient()
                 .get()
@@ -33,7 +34,7 @@ public class ContactPaginatedService {
                     return Flux.empty();
                 })
                 .flatMap(clientResponse ->
-                       clientResponse.bodyToFlux(ContactsElementsDto.class)
+                       clientResponse.bodyToFlux(ResponseContactsDto.class)
                 );
     }
 

@@ -79,7 +79,7 @@ public class ContactController {
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     @GetMapping("/paginated-contacts")
-    public Flux<ContactsElementsDto> getPaginatedContacts() {
+    public Flux<ResponseContactsDto> getPaginatedContacts() {
 
         return contactPaginationService.fetchPaginatedContacts();
     }
