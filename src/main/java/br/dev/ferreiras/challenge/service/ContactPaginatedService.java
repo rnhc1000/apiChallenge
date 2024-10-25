@@ -12,12 +12,13 @@ import java.util.List;
 public class ContactPaginatedService {
 
     private static final String APIKEY = "J7ybt6jv6pdJ4gyQP9gNonsY";
+    private static final String ENDPOINT = "/api/v1/contacts?";
 
     public Flux<ResponseContactsDto> fetchPaginatedContacts() {
 
         return webClient()
                 .get()
-                .uri("/api/v1/contacts?")
+                .uri(ENDPOINT)
                 .exchange()
                 .expand(clientResponse -> {
                     List<String> links = clientResponse.headers().asHttpHeaders().getValuesAsList("LINK");
@@ -26,7 +27,7 @@ public class ContactPaginatedService {
                         for (String link : links) {
                             if (link.contains("rel=\"next\"")) {
                                 return webClient().get()
-                                        .uri("/api/v1/contacts?" + link.substring(link.indexOf("page="), link.indexOf(">")))
+                                        .uri(ENDPOINT + link.substring(link.indexOf("page="), link.indexOf(">")))
                                         .exchange();
                             }
                         }
