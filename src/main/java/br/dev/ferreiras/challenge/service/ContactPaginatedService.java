@@ -15,7 +15,7 @@ public class ContactPaginatedService {
 
     public Flux<ResponseContactsDto> fetchPaginatedContacts() {
 
-    return  webClient()
+        return webClient()
                 .get()
                 .uri("/api/v1/contacts?")
                 .exchange()
@@ -26,7 +26,7 @@ public class ContactPaginatedService {
                         for (String link : links) {
                             if (link.contains("rel=\"next\"")) {
                                 return webClient().get()
-                                        .uri("/api/v1/contacts?" + link.substring(link.indexOf("?"), link.indexOf(">")))
+                                        .uri("/api/v1/contacts?" + link.substring(link.indexOf("page="), link.indexOf(">")))
                                         .exchange();
                             }
                         }
@@ -34,7 +34,7 @@ public class ContactPaginatedService {
                     return Flux.empty();
                 })
                 .flatMap(clientResponse ->
-                       clientResponse.bodyToFlux(ResponseContactsDto.class)
+                        clientResponse.bodyToFlux(ResponseContactsDto.class)
                 );
     }
 
@@ -46,7 +46,4 @@ public class ContactPaginatedService {
                 .defaultHeaders(httpHeaders -> httpHeaders.setBearerAuth(APIKEY))
                 .build();
     }
-
-
-
 }
