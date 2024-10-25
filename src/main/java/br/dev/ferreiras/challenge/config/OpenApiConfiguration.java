@@ -29,7 +29,7 @@ public class OpenApiConfiguration {
     public OpenAPI defineOpenApi() {
         final Server server = new Server();
         server.setUrl("""
-                http://192.168.15.11:8097
+                https://challenge.ferreiras.dev.br
                 """);
         server.setDescription("Challenge");
 
