@@ -51,7 +51,7 @@ public class ContactController {
                     content = {@Content(mediaType = "application/json")})
     })
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/contacts")
+    @GetMapping("/evaluating-contacts")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
     public Mono<ResponseContactsDto> getContacts(
             @RequestParam(defaultValue = "1") int page,
@@ -78,7 +78,7 @@ public class ContactController {
     })
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
-    @GetMapping("/paginated-contacts")
+    @GetMapping("/contacts")
     public Flux<ResponseContactsDto> getPaginatedContacts() {
 
         return contactPaginationService.fetchPaginatedContacts();
