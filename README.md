@@ -101,7 +101,7 @@ Take a look at the video below to understand how I faced the challenge.
 
 ## _Links_
 
-- Live Site URL: <a href="http://127.0.0.1:8097/swagger-ui/index.html" target="_blank">API Aggregator</a>
+- Live Site -> Click here :cloud:  <a href="https://challenge.ferreiras.dev.br/swagger-ui/index.html" target="_blank">API Aggregator</a>
 
 ## _Built with_
 
