@@ -52,7 +52,7 @@ The app has been coded using Java 17, Spring Boot 3.3.4, Gradle, Javadoc, Spring
 Spring Webflux, OpenAPI, JUnit, Mockito, MySQL, Docker and others.<br />
 Take a look at the video below to understand how I faced the challenge.
 <br />
-<a href="https://youtu.be/CUdN-P-14So" target="_blank">Short Video</a>
+<a href="https://www.youtube.com/watch?v=nuL8IKCsITo" target="_blank">Short Video</a>
 <hr />
 
 ## _Project Structure_
@@ -101,7 +101,7 @@ Take a look at the video below to understand how I faced the challenge.
 
 ## _Links_
 
-- Live Site URL: <a href="https://challenge.ferreiras.dev.br/swagger-ui/index.html" target="_blank">API Aggregator</a>
+- Live Site URL: <a href="http://127.0.0.1:8097/swagger-ui/index.html" target="_blank">API Aggregator</a>
 
 ## _Built with_
 
