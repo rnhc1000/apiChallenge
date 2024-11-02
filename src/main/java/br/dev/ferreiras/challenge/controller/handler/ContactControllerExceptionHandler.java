@@ -2,6 +2,7 @@ package br.dev.ferreiras.challenge.controller.handler;
 
 import br.dev.ferreiras.challenge.dto.ErrorResponseDto;
 import br.dev.ferreiras.challenge.service.exceptions.ContactProcessingException;
+import br.dev.ferreiras.challenge.service.exceptions.MediaNotSupportedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.reactive.function.UnsupportedMediaTypeException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.Instant;
@@ -50,5 +52,16 @@ public class ContactControllerExceptionHandler extends ResponseEntityExceptionHa
         );
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).body(errorResponseDto);
+    }
+
+    @ExceptionHandler(value={UnsupportedMediaTypeException.class})
+    public ResponseEntity<ErrorResponseDto> mediaException(final UnsupportedMediaTypeException exception) {
+
+        final ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(),
+                ContactControllerExceptionHandler.JSON_DECODING_ERROR,
+                Instant.now()
+        );
+        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value()).body(errorResponseDto);
     }
 }

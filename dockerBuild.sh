@@ -55,7 +55,7 @@ CREATE DATABASE challenge;
 INSERT INTO tb_roles(role_id, role) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO tb_roles(role_id, role) VALUES (2, 'ROLE_USER');
 
-# -- run the commmand
+# -- run the command
 
 docker-compose -f docker-compose.jobsity.yml up -docker
 

@@ -1,38 +1,38 @@
 package br.dev.ferreiras.challenge;
 
-import br.dev.ferreiras.challenge.service.UserService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
+import static org.assertj.core.api.Assertions.*;
+/*
+@SpringBootTest(properties = "spring.main.web-application-type=reactive")
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
+ */
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)
+@MockitoSettings()
 class ApplicationTest {
 
     @InjectMocks
     private Application application;
 
-    @Mock
-    private UserService userService;
+    @Autowired
+    private Environment environment;
+
 
     @Test
+    @DisplayName("Checking java version and cores")
     void run() {
-        when(this.userService.checkSystem()).thenReturn(Collections.singletonList("17"));
-        assertEquals("17.0.12", System.getProperty("java.version"));
-        assertEquals(4, Runtime.getRuntime().availableProcessors());
+        assertThat(System.getProperty("java.version")).isEqualTo("17.0.12");
+        assertThat(String.valueOf(Runtime.getRuntime().availableProcessors())).isEqualTo("4");
     }
-
-
 }
 

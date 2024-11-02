@@ -54,8 +54,10 @@ public class TokenController {
   @ApiResponses ({
           @ApiResponse (responseCode = "200", description = "OK!", content = @Content (mediaType = "application/json",
                   schema = @Schema (implementation = AccessToken.class))),
-          @ApiResponse (responseCode = "201", description = "Access Token created!", content = @Content (mediaType = "application/json")),
-          @ApiResponse (responseCode = "401", description = "Access Denied!", content = @Content (mediaType = "application/json")),
+          @ApiResponse (responseCode = "201", description = "Access Token created!", content = @Content (
+                  mediaType = "application/json")),
+          @ApiResponse (responseCode = "401", description = "Access Denied!", content = @Content (
+                  mediaType = "application/json")),
           @ApiResponse (responseCode = "403", description = "Not Authorized!", content = @Content),
   })
   @ResponseStatus(HttpStatus.CREATED)
