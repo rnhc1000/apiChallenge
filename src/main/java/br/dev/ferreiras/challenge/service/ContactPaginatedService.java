@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ public class ContactPaginatedService {
     private static final String ENDPOINT = "/api/v1/contacts?";
 
     public Flux<ResponseContactsDto> fetchPaginatedContacts() {
+
 
         return webClient()
                 .get()

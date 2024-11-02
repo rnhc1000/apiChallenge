@@ -1,5 +1,5 @@
 ## _API Aggregator Challenge_ <br />
-Goal: Develop an API to consume a contacts endpoint 
+Goal: Another take-home challenge 
 
 ## _Table of contents_
 
@@ -18,14 +18,15 @@ Goal: Develop an API to consume a contacts endpoint
 
 ## _Overview_
 
-This challenge delivers an API to consume contacts endpoint. 
-The goal is to evaluate how a dev face the challenge of
-building a REST API, according to a spec provided and detailed below.
+This challenge delivers an application that consumes an external API endpoint.
+It is a RFC8288 compliant paginated endpoint to be consumed, returning a list of contacts
+and the pagination information via link header and should be built according to some
+specific requirements.
 
 
 ## _Requirements_
 
-- The response from the endpoint should match the schema provided in the requirements.
+- The response from the endpoint should match the schema provided.
 <br />
 - Project structure and organization of your code: we want to see if your code follows good patterns, and separates
 concerns between controllers, services, and repositories.
@@ -46,7 +47,7 @@ Based on these, the app consumes services of another api -> <a href="https://k-m
 You can play with the app, visiting the link below after you build the app
 according to the instructions.
 
-http://127.0.0.1:8097/swagger-ui/html
+https://challenge.ferreiras.dev.br/swagger-ui/index.html
 <br />
 The app has been coded using Java 17, Spring Boot 3.3.4, Gradle, Javadoc, Spring Security, Spring JPA, 
 Spring Webflux, OpenAPI, JUnit, Mockito, MySQL, Docker and others.<br />
@@ -163,10 +164,10 @@ public class ContactController {
 
 ## _Continued development_
 
-- Unit Tests 
-- Subscriber Authentication - OK
-- Spring JWT-OAuth2 - OK
-- Records Pagination - TBD
+- Unit Tests - done
+- Subscriber Authentication - done
+- Spring JWT-OAuth2 - done
+- Records Pagination - done
 
 ### _Useful resources_
 
