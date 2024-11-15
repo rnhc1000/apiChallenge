@@ -29,7 +29,7 @@ public class OpenApiConfiguration {
     public OpenAPI defineOpenApi() {
         final Server server = new Server();
         server.setUrl("""
-                http://127.0.0.1:8097
+                http://192.168.15.11:8097
                 """);
         server.setDescription("Challenge");
 

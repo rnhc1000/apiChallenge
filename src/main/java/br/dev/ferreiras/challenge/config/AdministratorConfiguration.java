@@ -20,10 +20,9 @@ import java.util.Set;
  * @version 1.1.10.23.01
  * @since 1.0
  *
- * Generate credentials for admin to generate tokens
- * @params none
- * @return save the admin credentials to database
+ *
  */
+
 
 @Configuration
 public class AdministratorConfiguration implements CommandLineRunner {

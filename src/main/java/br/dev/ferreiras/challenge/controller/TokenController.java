@@ -10,16 +10,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+
 /**
  * Generate tokens to access
  * endpoint securely.
@@ -30,7 +32,7 @@ import java.util.Optional;
  */
 
 @RestController
-@RequestMapping (path = "api/v1")
+@RequestMapping(path = "/api/v1")
 public class TokenController {
 
   private static final Logger logger = LoggerFactory.getLogger(TokenController.class);
@@ -42,26 +44,23 @@ public class TokenController {
   private final AccessTokenService tokenService;
 
   public TokenController(
-          final BCryptPasswordEncoder bCryptPasswordEncoder,
-          final UserService userService, final AccessTokenService tokenService) {
+      final BCryptPasswordEncoder bCryptPasswordEncoder,
+      final UserService userService, final AccessTokenService tokenService) {
 
     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     this.userService = userService;
     this.tokenService = tokenService;
   }
 
-  @Operation (summary = "Authenticate a user and return an access token and its expiration time")
-  @ApiResponses ({
-          @ApiResponse (responseCode = "200", description = "OK!", content = @Content (mediaType = "application/json",
-                  schema = @Schema (implementation = AccessToken.class))),
-          @ApiResponse (responseCode = "201", description = "Access Token created!", content = @Content (
-                  mediaType = "application/json")),
-          @ApiResponse (responseCode = "401", description = "Access Denied!", content = @Content (
-                  mediaType = "application/json")),
-          @ApiResponse (responseCode = "403", description = "Not Authorized!", content = @Content),
-  })
-  @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping ("/login")
+  @Operation(summary = "Authenticate a user and return an access token and its expiration time")
+  @ApiResponse(responseCode = "200", description = "OK!", content = @Content(mediaType = "application/json",
+      schema = @Schema(implementation = AccessToken.class)))
+  @ApiResponse(responseCode = "201", description = "Access Token created!", content = @Content(
+      mediaType = "application/json"))
+  @ApiResponse(responseCode = "401", description = "Access Denied!", content = @Content(
+      mediaType = "application/json"))
+  @ApiResponse(responseCode = "403", description = "Not Authorized!", content = @Content)
+  @PostMapping("/login")
   public ResponseEntity<LoginResponseDto> login(@RequestBody final LoginRequestDto loginRequestDto) {
 
     final Optional<User> user = this.userService.getUsername(loginRequestDto.username());

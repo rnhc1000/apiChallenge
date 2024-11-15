@@ -16,8 +16,6 @@ public class ContactPaginatedService {
     private static final String ENDPOINT = "/api/v1/contacts?";
 
     public Flux<ResponseContactsDto> fetchPaginatedContacts() {
-
-
         return webClient()
                 .get()
                 .uri(ENDPOINT)
